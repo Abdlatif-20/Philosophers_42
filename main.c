@@ -1,30 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/03 22:36:46 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/03 23:08:35 by aben-nei         ###   ########.fr       */
+/*   Created: 2023/06/03 22:36:40 by aben-nei          #+#    #+#             */
+/*   Updated: 2023/06/03 22:51:34 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef PHILO_H
-# define PHILO_H
-
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <pthread.h>
-# include <sys/time.h>
-
-// typedef struct philo_t;
-// {
-// }				t_philo;
-
-int         check_args(int ac, char **av);
-int         ft_isdigit(int c );
-long long	ft_atoi(const char *str);
-
-# endif
