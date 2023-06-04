@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:49 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/03 23:07:50 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/04 17:37:00 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_isdigit(int c )
 
 int	check_args(int ac, char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 1;
 	while (i < ac)
@@ -31,16 +31,14 @@ int	check_args(int ac, char **av)
 		while (av[i][j])
 		{
 			if (!ft_isdigit(av[i][j]))
-			{
-				printf("Error: wrong argument\n");
 				return (1);
-			}
 			j++;
 		}
 		i++;
 	}
 	return (0);
 }
+
 long long	ft_atoi(const char *str)
 {
 	long long		res;
@@ -64,4 +62,19 @@ long long	ft_atoi(const char *str)
 		str++;
 	}
 	return (sign * res);
+}
+
+int	check_max_min(char **av, int ac)
+{
+	long long	nb;
+	int			i;
+
+	i = 0;
+	while (++i < ac)
+	{
+		nb = ft_atoi(av[i]);
+		if (nb > 2147483647 || nb < 0 || nb == 0)
+			return (1);
+	}
+	return (0);
 }
