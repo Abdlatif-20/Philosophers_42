@@ -6,15 +6,15 @@
 #    By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 22:49:14 by aben-nei          #+#    #+#              #
-#    Updated: 2023/06/06 23:07:52 by aben-nei         ###   ########.fr        #
+#    Updated: 2023/06/09 21:25:50 by aben-nei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 -pthread
 NAME = philosopher
 
-SRC = philo/philo.c philo/utils.c
+SRC = philo.c parsing.c create_list.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -23,7 +23,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
 
-%.o: %.c
+%.o: %.c philo.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
