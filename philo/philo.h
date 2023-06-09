@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:46 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/09 20:53:32 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:33:49 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ typedef struct philo_t
 	long long		time_to_sleep;
 	long long		start_time;
 	long long		last_eat;
+	long long		num_eat;
+	long long		*num_of_eat;
 	long long		*is_dead;
 	pthread_t		thread;
 	pthread_mutex_t	fork;
+	pthread_mutex_t	edit_var;
 	struct philo_t	*next;
 }					t_philo;
 

@@ -6,7 +6,7 @@
 #    By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 22:49:14 by aben-nei          #+#    #+#              #
-#    Updated: 2023/06/09 21:25:50 by aben-nei         ###   ########.fr        #
+#    Updated: 2023/06/09 22:38:04 by aben-nei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $@
+	@clear
 
 %.o: %.c philo.h
 	$(CC) $(CFLAGS) -c $< -o $@

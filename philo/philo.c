@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/09 21:26:45 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:37:45 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_usleep(long long time)
 	return (1);
 }
 
-
 long	ft_get_time(void)
 {
 	struct timeval	time;
@@ -33,8 +32,13 @@ long	ft_get_time(void)
 
 void	ft_routine(t_philo *philos)
 {
+	// long	num_eat;
+	// long	num_philo_eat;
+
 	if (philos->id % 2 == 0)
 		usleep(100);
+	// num_eat = 0;
+	// num_philo_eat = 0;
 	while (42)
 	{
 		pthread_mutex_lock(&philos->fork);
@@ -46,6 +50,12 @@ void	ft_routine(t_philo *philos)
 		printf("time %lld philo %lld is eating\n",
 			ft_get_time() - philos->start_time, philos->id);
 		philos->last_eat = ft_get_time();
+		// philos->num_of_eat++;
+		// pthread_mutex_lock(&philos->edit_var);
+		// 	num_eat++;
+		// pthread_mutex_unlock(&philos->edit_var);
+		// if (num_eat == philos->num_eat)
+		// 	num_philo_eat++;
 		ft_usleep(philos->time_to_eat);
 		pthread_mutex_unlock(&philos->fork);
 		pthread_mutex_unlock(&philos->next->fork);
@@ -69,17 +79,7 @@ int	main(int ac, char **av)
 	philo = fill_list(atoi(av[1]), av);
 	head = philo;
 	len = atoi(av[1]);
-	// while (len > 0)
-	// {
-	// 	printf("id: %lld\n", philo->id);
-	// 	printf("time_to_die: %lld\n", philo->time_to_die);
-	// 	printf("time_to_eat: %lld\n", philo->time_to_eat);
-	// 	printf("time_to_sleep: %lld\n", philo->time_to_sleep);
-	// 	printf("-------------------\n");
-	// 	philo = philo->next;
-	// 	len--;
-	// }
-	while (len > 0)
+	while (len)
 	{
 		pthread_create(&philo->thread, NULL, (void *)ft_routine, philo);
 		philo = philo->next;
@@ -88,7 +88,7 @@ int	main(int ac, char **av)
 	philo = head;
 	while (1) /*check death and the optional argument*/
 	{
-		if (ft_get_time() - philo->last_eat > philo->time_to_die)
+		if (ft_get_time() - philo->last_eat >= philo->time_to_die)
 		{
 			printf("time %lld philo %lld is dead\n",
 				ft_get_time() - philo->start_time, philo->id);

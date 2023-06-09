@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:21:28 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/09 21:18:00 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/09 22:34:07 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ t_philo	*ft_creat_philo(char **av, int i, t_philo *head)
 	philo->time_to_sleep = ft_atoi(av[4]);
 	philo->start_time = ft_get_time();
 	philo->last_eat = ft_get_time();
+	philo->num_eat = ft_atoi(av[5]);
+	philo->num_of_eat = 0;
 	pthread_mutex_init(&philo->fork, NULL);
 	philo->next = head;
 	return (philo);
