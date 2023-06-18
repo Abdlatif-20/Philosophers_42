@@ -6,112 +6,70 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/09 22:37:45 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:17:32 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_usleep(long long time)
+int	check_is_dead(t_philo *philo)
 {
-	long long	start;
+	int	i;
 
-	start = ft_get_time();
-	while (ft_get_time() - start < time)
-		usleep(100);
-	return (1);
-}
-
-long	ft_get_time(void)
-{
-	struct timeval	time;
-
-	gettimeofday(&time, NULL);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-
-void	ft_routine(t_philo *philos)
-{
-	// long	num_eat;
-	// long	num_philo_eat;
-
-	if (philos->id % 2 == 0)
-		usleep(100);
-	// num_eat = 0;
-	// num_philo_eat = 0;
-	while (42)
+	i = 0;
+	if (ft_get_time() - philo->last_eat >= philo->info->time_to_die)
 	{
-		pthread_mutex_lock(&philos->fork);
-		printf("time %lld philo %lld has taken a right fork\n",
-			ft_get_time() - philos->start_time, philos->id);
-		pthread_mutex_lock(&philos->next->fork);
-		printf("time %lld philo %lld has taken a left fork\n",
-			ft_get_time() - philos->start_time, philos->id);
-		printf("time %lld philo %lld is eating\n",
-			ft_get_time() - philos->start_time, philos->id);
-		philos->last_eat = ft_get_time();
-		// philos->num_of_eat++;
-		// pthread_mutex_lock(&philos->edit_var);
-		// 	num_eat++;
-		// pthread_mutex_unlock(&philos->edit_var);
-		// if (num_eat == philos->num_eat)
-		// 	num_philo_eat++;
-		ft_usleep(philos->time_to_eat);
-		pthread_mutex_unlock(&philos->fork);
-		pthread_mutex_unlock(&philos->next->fork);
-		printf("time %lld philo %lld is sleeping\n",
-			ft_get_time() - philos->start_time, philos->id);
-		ft_usleep(philos->time_to_sleep);
-		printf("time %lld philo %lld is thinking\n",
-			ft_get_time() - philos->start_time, philos->id);
+		while (i <= philo->info->nb_philo)
+		{
+			philo->is_dead = 1;
+			philo = philo->next;
+			i++;
+		}
+		pthread_mutex_lock(&philo->info->mut_dead);
+		ft_print("is dead\n", philo);
+		pthread_mutex_unlock(&philo->info->mut_dead);
+		return (1);
+	}
+	return (0);
+}
+
+void	create_thread(t_philo *philo)
+{
+	int	nb_philo;
+
+	nb_philo = philo->info->nb_philo;
+	while (nb_philo)
+	{
+		pthread_create(&philo->thread, NULL, (void *)ft_routine, philo);
+		philo = philo->next;
+		nb_philo--;
 	}
 }
 
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
-	t_philo	*head;
-	int		len;
+	t_info	info;
 
 	philo = NULL;
 	if ((ac != 5 && ac != 6) || check_max_min(av, ac) || check_args(ac, av))
 		return (printf("Error: wrong number of arguments\n"), 1);
-	philo = fill_list(atoi(av[1]), av);
-	head = philo;
-	len = atoi(av[1]);
-	while (len)
+	ft_fill_info(&info, av);
+	philo = fill_list(atoi(av[1]), &info);
+	create_thread(philo);
+	while (1)
 	{
-		pthread_create(&philo->thread, NULL, (void *)ft_routine, philo);
-		philo = philo->next;
-		len--;
-	}
-	philo = head;
-	while (1) /*check death and the optional argument*/
-	{
-		if (ft_get_time() - philo->last_eat >= philo->time_to_die)
-		{
-			printf("time %lld philo %lld is dead\n",
-				ft_get_time() - philo->start_time, philo->id);
-			return (0);
-		}
-		philo = philo->next;
+		pthread_mutex_lock(&info.edit_var);
+		if (check_is_dead(philo))
+			break ;
+		pthread_mutex_unlock(&info.edit_var);
+		pthread_mutex_lock(&info.edit_var);
+		if (philo->info->must_eat > 0
+			&& check_if_all_eat(philo, philo->info->nb_philo, &info))
+			break ;
+		pthread_mutex_unlock(&info.edit_var);
+		if (philo->next)
+			philo = philo->next;
 	}
 	return (0);
 }
-/*
-
-routine
-
-pthread_mutex_lock(fork)
-print philo khda fork
-pthread_mutex_lock(t->next->fork)
-print philo khda fork
-print(bda yakl)
-usleep (t_to eat)
-unlock(fork)
-unlock(fork->next)
-print(sleap)
-usleep ()
-print(tinking)
-
-*/
