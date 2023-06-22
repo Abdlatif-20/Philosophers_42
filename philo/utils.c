@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:07:45 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/20 00:49:22 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:19:38 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ bool	check_if_all_eat(t_philo *philo, int i, t_info *info)
 
 void	ft_print(char *str, t_philo *philo)
 {
-	if (philo->is_dead)
-		return ;
 	pthread_mutex_lock(&philo->info->print_mutex);
 	printf("time %ld philo %ld %s", ft_get_time() - philo->start_time,
 		philo->id, str);

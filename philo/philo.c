@@ -3,41 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/20 02:15:37 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:50:19 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_distroi(t_philo *philo, t_info *info)
+{
+	int	i;
+
+	i = 0;
+	while (i < info->nb_philo)
+	{
+		pthread_mutex_destroy(&philo->fork);
+		philo = philo->next;
+		i++;
+	}
+	pthread_mutex_destroy(&info->edit_var);
+	pthread_mutex_destroy(&info->mut_dead);
+	pthread_mutex_destroy(&info->print_mutex);
+	free(philo);
+}
 
 int	check_is_dead(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_lock(philo->info->mut_dead);
-	int	check_time = ft_get_time() - philo->last_eat;
-	pthread_mutex_unlock(philo->info->mut_dead);
-	if (check_time >= philo->info->time_to_die)
+	if (ft_get_time() - philo->last_eat >= philo->info->time_to_die)
 	{
-			pthread_mutex_lock(&philo->variable);
 		while (i <= philo->info->nb_philo)
 		{
-		// pthread_mutex_lock(philo->info->mut_dead);
 			philo->is_dead = 1;
-		// pthread_mutex_unlock(philo->info->mut_dead);
-			if(philo->next)
-				philo = philo->next;
+			philo = philo->next;
 			i++;
-			pthread_mutex_unlock(&philo->variable);
 		}
-		pthread_mutex_lock(philo->info->mut_dead);
 		ft_print("is dead\n", philo);
-		pthread_mutex_unlock(philo->info->mut_dead);
+		pthread_mutex_lock(&philo->info->mut_dead);
 		return (1);
-
 	}
 	return (0);
 }
@@ -68,9 +75,10 @@ int	main(int ac, char **av)
 	create_thread(philo);
 	while (1)
 	{
+		pthread_mutex_lock(&info.edit_var);
 		if (check_is_dead(philo))
 			break ;
-
+		pthread_mutex_unlock(&info.edit_var);
 		pthread_mutex_lock(&info.edit_var);
 		if (philo->info->must_eat > 0
 			&& check_if_all_eat(philo, philo->info->nb_philo, &info))
