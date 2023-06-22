@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:21:28 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/18 18:32:20 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/20 02:05:55 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_philo	*ft_creat_philo(int i, t_philo *head, t_info *info)
 	philo->num_of_eat = 0;
 	philo->is_dead = 0;
 	pthread_mutex_init(&philo->fork, NULL);
+	pthread_mutex_init(&philo->variable, NULL);
 	philo->next = head;
 	return (philo);
 }
