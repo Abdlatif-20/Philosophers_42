@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:46 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/20 02:12:18 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/18 21:12:02 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef struct info_t
 	long			nb_philo;
 	long			must_eat;
 	pthread_mutex_t	edit_var;
-	pthread_mutex_t	*mut_dead;
+	pthread_mutex_t	mut_dead;
 	pthread_mutex_t	print_mutex;
 }					t_info;
 
@@ -41,7 +41,6 @@ typedef struct philo_t
 	long			num_of_eat;
 	int				is_dead;
 	pthread_t		thread;
-	pthread_mutex_t	variable;
 	pthread_mutex_t	fork;
 	t_info			*info;
 	struct philo_t	*next;

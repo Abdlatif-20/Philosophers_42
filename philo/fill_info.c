@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:06:20 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/20 02:13:37 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/18 18:34:23 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,4 @@ void	ft_fill_info(t_info *info, char **av)
 		info->must_eat = -1;
 	pthread_mutex_init(&info->edit_var, NULL);
 	pthread_mutex_init(&info->print_mutex, NULL);
-	info->mut_dead = malloc(sizeof(pthread_mutex_t));
-	pthread_mutex_init(info->mut_dead, NULL);
 }
