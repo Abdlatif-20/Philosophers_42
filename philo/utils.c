@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:07:45 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/18 21:19:38 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:34:32 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	check_if_all_eat(t_philo *philo, int i, t_info *info)
 void	ft_print(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->print_mutex);
-	printf("time %ld philo %ld %s", ft_get_time() - philo->start_time,
+	printf("\033[0;36mtime %ld philo %ld \033[0m%s", ft_get_time() - philo->start_time,
 		philo->id, str);
 	pthread_mutex_unlock(&philo->info->print_mutex);
 }

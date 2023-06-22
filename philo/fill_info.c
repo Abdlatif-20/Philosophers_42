@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 21:06:20 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/18 18:34:23 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:23:40 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,5 @@ void	ft_fill_info(t_info *info, char **av)
 		info->must_eat = -1;
 	pthread_mutex_init(&info->edit_var, NULL);
 	pthread_mutex_init(&info->print_mutex, NULL);
+	pthread_mutex_init(&info->mut_dead, NULL);
 }

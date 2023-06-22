@@ -6,12 +6,12 @@
 #    By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 22:49:14 by aben-nei          #+#    #+#              #
-#    Updated: 2023/06/22 20:51:28 by aben-nei         ###   ########.fr        #
+#    Updated: 2023/06/22 21:16:18 by aben-nei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
 
 NAME = philo
 

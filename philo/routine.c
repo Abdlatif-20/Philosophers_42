@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:08:27 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/22 20:50:55 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:31:46 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_routine2(t_philo *philos)
 	ft_usleep(philos->info->time_to_eat);
 	pthread_mutex_unlock(&philos->fork);
 	pthread_mutex_unlock(&philos->next->fork);
-	ft_print("is sleeping\n", philos);
+	ft_print("\033[4;33m\002is sleeping\033[0m\n", philos);
 	ft_usleep(philos->info->time_to_sleep);
-	ft_print("is thinking\n", philos);
+	ft_print("\033[0;34mis thinking\033[0m\n", philos);
 }
 
 void	ft_routine(t_philo *philos)
@@ -32,19 +32,13 @@ void	ft_routine(t_philo *philos)
 		usleep(100);
 	while (42)
 	{
-		if (philos && philos->info->nb_philo == 1)
+		pthread_mutex_lock(&philos->fork);
+		ft_print("\033[4;32m\002has taken a right fork\033[0m\n", philos);
+		if (philos->next)
 		{
-			pthread_mutex_lock(&philos->fork);
-			ft_print("has taken a right fork\n", philos);
-			ft_usleep(philos->info->time_to_die);
-		}
-		else
-		{
-			pthread_mutex_lock(&philos->fork);
-			ft_print("has taken a right fork\n", philos);
 			pthread_mutex_lock(&philos->next->fork);
-			ft_print("has taken a left fork\n", philos);
-			ft_print("is eating\n", philos);
+			ft_print("\033[4;32m\002has taken a left fork\033[0m\n", philos);
+			ft_print("\033[0;35mis eating\033[0m\n", philos);
 			ft_routine2(philos);
 		}
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:46 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/18 21:12:02 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/06/22 21:27:38 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <stdbool.h>
+
+#define ERR_ARG "\033[1;31m\033[4;31m\002\002Error: wrong number of arguments\033[0m\n"
 
 typedef struct info_t
 {
