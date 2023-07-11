@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:07:45 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/11 05:53:20 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/11 06:06:30 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ bool	check_if_all_eat(t_philo *philo, int i, t_info *info)
 		i--;
 	}
 	return (true);
-} 
+}
+
 void	ft_print(char *str, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->info->print_mutex);

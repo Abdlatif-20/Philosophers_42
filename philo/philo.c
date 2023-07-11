@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/11 06:02:34 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/11 06:06:55 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	ft_destroy(t_philo *philo, t_info *info)
 int	check_is_dead(t_philo *philo)
 {
 	int	i;
-	
+
 	i = 0;
 	if (ft_get_time() - philo->last_eat >= philo->info->time_to_die)
 	{
@@ -65,8 +65,6 @@ void	create_thread(t_philo *philo)
 	}
 }
 
-
-
 int	main(int ac, char **av)
 {
 	t_philo	*philo;
@@ -82,10 +80,8 @@ int	main(int ac, char **av)
 	{
 		pthread_mutex_lock(&philo->edit_var);
 		if (check_is_dead(philo))
-		{
-			pthread_mutex_unlock(&philo->edit_var);
-			return (ft_destroy(philo, &info), 1);
-		}
+			return (pthread_mutex_unlock(&philo->edit_var),
+				ft_destroy(philo, &info), 1);
 		pthread_mutex_unlock(&philo->edit_var);
 		pthread_mutex_lock(&philo->edit_var);
 		if (philo->info->must_eat > 0
