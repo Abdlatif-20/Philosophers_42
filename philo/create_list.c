@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:21:28 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/18 18:32:20 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/11 05:24:22 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@ t_philo	*ft_creat_philo(int i, t_philo *head, t_info *info)
 	philo->start_time = ft_get_time();
 	philo->last_eat = ft_get_time();
 	philo->num_of_eat = 0;
-	philo->is_dead = 0;
+	philo->is_dead = false;
 	pthread_mutex_init(&philo->fork, NULL);
+	pthread_mutex_init(&philo->edit_var, NULL);
+	pthread_mutex_init(&philo->check_dead, NULL);
+	pthread_mutex_init(&philo->must_eat_mutex, NULL);
+	pthread_mutex_init(&philo->last_eat_mutex, NULL);
 	philo->next = head;
 	return (philo);
 }

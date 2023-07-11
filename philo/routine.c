@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:08:27 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/22 21:31:46 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/11 05:55:45 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	ft_routine2(t_philo *philos)
 {
-	pthread_mutex_lock(&philos->info->edit_var);
+	pthread_mutex_lock(&philos->edit_var);
 	philos->last_eat = ft_get_time();
+	pthread_mutex_lock(&philos->must_eat_mutex);
 	philos->num_of_eat++;
-	pthread_mutex_unlock(&philos->info->edit_var);
+	pthread_mutex_unlock(&philos->must_eat_mutex);
+	pthread_mutex_unlock(&philos->edit_var);
 	ft_usleep(philos->info->time_to_eat);
 	pthread_mutex_unlock(&philos->fork);
 	pthread_mutex_unlock(&philos->next->fork);
@@ -29,7 +31,7 @@ void	ft_routine2(t_philo *philos)
 void	ft_routine(t_philo *philos)
 {
 	if (philos->id % 2 == 0)
-		usleep(100);
+		usleep(1000);
 	while (42)
 	{
 		pthread_mutex_lock(&philos->fork);
