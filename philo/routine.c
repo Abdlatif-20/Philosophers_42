@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 23:08:27 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/11 05:55:45 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/16 10:08:10 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	ft_routine2(t_philo *philos)
 {
-	pthread_mutex_lock(&philos->edit_var);
+	pthread_mutex_lock(&philos->last_eat_mutex);
 	philos->last_eat = ft_get_time();
-	pthread_mutex_lock(&philos->must_eat_mutex);
+	pthread_mutex_unlock(&philos->last_eat_mutex);
+	pthread_mutex_lock(&philos->num_eat_mutex);
 	philos->num_of_eat++;
-	pthread_mutex_unlock(&philos->must_eat_mutex);
-	pthread_mutex_unlock(&philos->edit_var);
+	pthread_mutex_unlock(&philos->num_eat_mutex);
 	ft_usleep(philos->info->time_to_eat);
 	pthread_mutex_unlock(&philos->fork);
 	pthread_mutex_unlock(&philos->next->fork);
@@ -31,7 +31,7 @@ void	ft_routine2(t_philo *philos)
 void	ft_routine(t_philo *philos)
 {
 	if (philos->id % 2 == 0)
-		usleep(1000);
+		usleep(100);
 	while (42)
 	{
 		pthread_mutex_lock(&philos->fork);
@@ -43,5 +43,12 @@ void	ft_routine(t_philo *philos)
 			ft_print("\033[0;35mis eating\033[0m\n", philos);
 			ft_routine2(philos);
 		}
+		pthread_mutex_lock(&philos->mut_dead);
+		if (philos->is_dead)
+		{
+			pthread_mutex_unlock(&philos->mut_dead);
+			break ;
+		}
+		pthread_mutex_unlock(&philos->mut_dead);
 	}
 }

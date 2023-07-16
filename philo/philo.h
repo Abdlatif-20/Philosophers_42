@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:46 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/11 05:24:12 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/16 10:20:00 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <sys/time.h>
 # include <stdbool.h>
 
-# define ERR_ARG "\033[1;31m\033[4;31m\002\002Error:\
-	wrong number of arguments\033[0m\n"
+# define ERR_ARG "\033[1;31m\033[4;31m\002\002Error: \
+wrong number of arguments\033[0m\n"
 
 typedef struct info_t
 {
@@ -31,6 +31,7 @@ typedef struct info_t
 	long			time_to_sleep;
 	long			nb_philo;
 	long			must_eat;
+	pthread_mutex_t	edit_var;
 	pthread_mutex_t	print_mutex;
 }					t_info;
 
@@ -38,36 +39,29 @@ typedef struct philo_t
 {
 	long			id;
 	long			start_time;
+	bool			is_dead;
 	long			last_eat;
 	long			num_of_eat;
-	bool			is_dead;
-	pthread_t		thread;
-	pthread_mutex_t	edit_var;
-	pthread_mutex_t	must_eat_mutex;
 	pthread_mutex_t	last_eat_mutex;
-	pthread_mutex_t	check_dead;
+	pthread_mutex_t	num_eat_mutex;
+	pthread_mutex_t	mut_dead;
+	pthread_t		thread;
 	pthread_mutex_t	fork;
 	t_info			*info;
 	struct philo_t	*next;
 }					t_philo;
 
-//parsing
 int			check_args(int ac, char **av);
 int			ft_isdigit(int c );
 long long	ft_atoi(const char *str);
 int			check_max_min(char **av, int ac);
-//utils
 long		ft_get_time(void);
+t_philo		*fill_list(int len, t_info *info);
+void		ft_fill_info(t_info *info, char **av);
+void		ft_routine(t_philo *philos);
 bool		check_if_all_eat(t_philo *philo, int i, t_info *info);
 void		ft_print(char *str, t_philo *philo);
 int			ft_usleep(long long time);
 long		ft_get_time(void);
-int			check_is_dead(t_philo *philo);
-void		ft_free_philo(t_philo *philo);
-//create and fill philo and info
-t_philo		*fill_list(int len, t_info *info);
-void		ft_fill_info(t_info *info, char **av);
-//routine
-void		ft_routine(t_philo *philos);
-
+void		ft_free(t_philo *philo);
 #endif
