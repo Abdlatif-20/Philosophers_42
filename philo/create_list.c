@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:21:28 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/16 10:06:46 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:31:32 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_philo	*fill_list(int len, t_info *info)
 	i = 0;
 	head = NULL;
 	list = ft_creat_philo(++i, head, info);
+	if (!list)
+		return (NULL);
 	head = list;
 	while (len > i)
 	{

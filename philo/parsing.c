@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aben-nei <aben-nei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:22:35 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/06/08 01:22:37 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/17 19:26:22 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 int	ft_isdigit(int c )
 {
-	if (c >= '0' && c <= '9')
-		return (1);
+	static int i = 0;
+
+	if ((c >= '0' && c <= '9') || (c == '+' && i == 0))
+		return (i = 1, 1);
 	return (0);
 }
 
@@ -28,6 +30,8 @@ int	check_args(int ac, char **av)
 	while (i < ac)
 	{
 		j = 0;
+		if (!av[i][j])
+			return (1);
 		while (av[i][j])
 		{
 			if (!ft_isdigit(av[i][j]))
@@ -73,7 +77,7 @@ int	check_max_min(char **av, int ac)
 	while (++i < ac)
 	{
 		nb = ft_atoi(av[i]);
-		if (nb > 2147483647 || nb < 0 || nb == 0)
+		if (nb > 2147483647 || nb < 0)
 			return (1);
 	}
 	return (0);
