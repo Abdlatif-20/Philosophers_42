@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/17 19:32:00 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/18 09:55:03 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	create_thread(t_philo *philo)
 	while (nb_philo)
 	{
 		pthread_create(&philo->thread, NULL, (void *)ft_routine, philo);
+		pthread_detach(philo->thread);
 		philo = philo->next;
 		nb_philo--;
 	}

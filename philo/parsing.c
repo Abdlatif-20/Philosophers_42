@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:22:35 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/17 19:26:22 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/19 10:10:34 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	ft_isdigit(int c )
 {
-	static int i = 0;
-
-	if ((c >= '0' && c <= '9') || (c == '+' && i == 0))
-		return (i = 1, 1);
+	if ((c >= '0' && c <= '9'))
+		return (1);
 	return (0);
 }
 
@@ -34,7 +32,7 @@ int	check_args(int ac, char **av)
 			return (1);
 		while (av[i][j])
 		{
-			if (!ft_isdigit(av[i][j]))
+			if (!ft_isdigit(av[i][j]) && av[i][0] != '+')
 				return (1);
 			j++;
 		}
