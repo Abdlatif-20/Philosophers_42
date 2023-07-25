@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 22:36:43 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/18 09:55:03 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:32:32 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void	create_thread(t_philo *philo)
 	while (nb_philo)
 	{
 		pthread_create(&philo->thread, NULL, (void *)ft_routine, philo);
-		pthread_detach(philo->thread);
 		philo = philo->next;
 		nb_philo--;
 	}
@@ -93,6 +92,7 @@ int	main(int ac, char **av)
 {
 	t_philo	*philo;
 	t_info	info;
+	t_philo	*tmp;
 	int		i;
 
 	philo = NULL;
@@ -107,7 +107,7 @@ int	main(int ac, char **av)
 	create_thread(philo);
 	main_helper(&philo, &info);
 	i = 0;
-	t_philo	*tmp = philo;
+	tmp = philo;
 	while (i++ < info.nb_philo)
 	{
 		pthread_join(tmp->thread, NULL);

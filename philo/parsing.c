@@ -6,7 +6,7 @@
 /*   By: aben-nei <aben-nei@student.ma>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/08 01:22:35 by aben-nei          #+#    #+#             */
-/*   Updated: 2023/07/25 19:21:17 by aben-nei         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:32:21 by aben-nei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int	check_args(int ac, char **av)
 		{
 			if (av[i][j] == '+')
 				flag++;
-			else if (!ft_isdigit(av[i][j]) || av[i][ft_strlen(av[i]) - 1] == '+')
+			else if (!ft_isdigit(av[i][j])
+				|| av[i][ft_strlen(av[i]) - 1] == '+')
 				return (1);
 			if (flag > 1)
 				return (1);
