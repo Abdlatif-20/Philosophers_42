@@ -43,11 +43,11 @@ __exemple :__
 `./philo 4 500 200 200`
 
 I made a visual option, which makes it possible to have a prettier display, which reduces performance a little.
-To use it, add the option __*-v*__ after the executable, this option is only available on __*philo_zero*__ (philo zero is identical to philo one, but it can handle the [-v] option)
+To use it, add the option __*-v*__ after the executable, this option is only available on __philo__
 
 __exemple :__
 
-`./philo_zero -v 4 500 200 200`
+`./philo -v 4 500 200 200`
 
 ![alt text](https://zupimages.net/up/20/39/8a98.png)
 
